@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
+import java.util.Timer;
+
 public class MainActivity extends AppCompatActivity {
     MediaPlayer mediaPlayer;
     AudioManager audioManager;
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
         mediaPlayer  = MediaPlayer.create(this, R.raw.we_are_not_gonna_take_it);
         SeekBar volumeControl =  (SeekBar) findViewById(R.id.seekBarVolume);
+        SeekBar scrubber = (SeekBar) findViewById(R.id.seekBarScrubber);
+
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
 
@@ -30,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         volumeControl.setMax(maxVolume);
         volumeControl.setProgress(currentVolum);
+
+        scrubber.setMax(mediaPlayer.getDuration());
 
         volumeControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -48,6 +54,25 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        scrubber.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                mediaPlayer.seekTo(i);
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
 
     }
     public void play(View view){
