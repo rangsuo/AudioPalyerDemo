@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.SeekBar;
 
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     MediaPlayer mediaPlayer;
@@ -72,6 +73,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        new Timer().sc(new TimerTask() {
+            @Override
+            public void run() {
+
+                scrubber.setProgress(mediaPlayer.getCurrentPosition());
+
+            }
+        },0,10000);
 
 
     }
